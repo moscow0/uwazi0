@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`entitiesIndex updateMapping should update the mapping provided by the factory 1`] = `
+Object {
+  "properties": Object {
+    "value": Object {
+      "analyzer": "tokenizer",
+      "fields": Object {
+        "sort": Object {
+          "analyzer": "string_sorter",
+          "fielddata": true,
+          "type": "text",
+        },
+      },
+      "term_vector": "with_positions_offsets",
+      "type": "text",
+    },
+  },
+}
+`;
+
+exports[`entitiesIndex updateMapping should update the mapping provided by the factory 2`] = `
+Object {
+  "properties": Object {
+    "value": Object {
+      "fields": Object {
+        "sort": Object {
+          "type": "double",
+        },
+      },
+      "type": "double",
+    },
+  },
+}
+`;
+
+exports[`entitiesIndex updateMapping should update the mapping provided by the factory 3`] = `
+Object {
+  "properties": Object {
+    "label": Object {
+      "analyzer": "tokenizer",
+      "fields": Object {
+        "sort": Object {
+          "analyzer": "string_sorter",
+          "fielddata": true,
+          "type": "text",
+        },
+      },
+      "term_vector": "with_positions_offsets",
+      "type": "text",
+    },
+    "value": Object {
+      "fields": Object {
+        "sort": Object {
+          "analyzer": "string_sorter",
+          "fielddata": true,
+          "type": "text",
+        },
+      },
+      "type": "keyword",
+    },
+  },
+}
+`;

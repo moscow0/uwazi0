@@ -1,0 +1,150 @@
+.Dropdown {
+  position: absolute;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  z-index: 3;
+
+  &:hover {
+    background: $c-grey-lighten;
+  }
+  &.is-active {
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+    border-radius: $border-radius;
+    background: $c-white;
+    box-shadow: $box-shadow;
+    border-color: $c-grey;
+  }
+}
+
+.Dropdown {
+  .fa-caret-up {
+    display: none;
+  }
+}
+
+.Dropdown.is-active {
+  .fa-caret-down {
+    display: none;
+  }
+  .fa-caret-up {
+    display: block;
+  }
+}
+
+.Dropdown-list {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  overflow-y: auto;
+  max-height: 50vh;
+  border: 1px solid $c-grey-light;
+  border-radius: 5px;
+}
+.Dropdown-option,
+.Dropdown-option__item {
+  display: none;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  cursor: pointer;
+  order: 1;
+  font-weight: normal;
+  color: unset;
+  z-index: 1;
+  align-items: baseline;
+
+  &.is-active {
+    order: 0;
+    display: -webkit-flex;
+    display: flex;
+    text-decoration: none;
+  }
+}
+
+.Dropdown-option {
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+
+.Dropdown-option__item {
+  padding: 3px 7px 2px;
+}
+
+.Dropdown:hover,
+.Dropdown.is-active {
+  span {
+    opacity: 1;
+  }
+
+  .Dropdown-option__item.is-active,
+  .fa {
+    color: $c-black !important;
+  }
+}
+
+.Dropdown.is-active {
+  .Dropdown-option,
+  .Dropdown-option__item {
+    display: -webkit-flex;
+    display: flex;
+  }
+}
+
+.sort-buttons {
+  display: flex;
+  gap: 15px;
+  border-right: 1px solid #d7d7dc;
+  padding-right: 15px;
+  align-items: center;
+
+  .sorting-toggle {
+    background-color: white;
+    border: #ccc 1px solid;
+    border-radius: 4px;
+
+    &.disabled {
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .sort-dropdown {
+    width: 20vw;
+    max-width: 250px;
+
+    div {
+      height: unset;
+    }
+
+    li {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 250px;
+    }
+  }
+}
+
+.sort-by .sort-buttons .Dropdown {
+  top: 0px;
+}
+
+.sort-by .sort-buttons .Dropdown.width-placeholder.order-by {
+  position: unset;
+}
+
+.Dropdown.width-placeholder a.Dropdown-option__item.is-active {
+  color: rgba(0, 0, 0, 0) !important;
+}

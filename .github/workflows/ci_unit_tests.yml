@@ -1,0 +1,122 @@
+name: Unit tests
+
+on:
+  push:
+    branches:
+      - production
+      - development
+      - staging
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  api_unit_tests:
+    runs-on: ubuntu-latest
+    services:
+      elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.0-amd64
+        ports:
+          - 9200/tcp
+        options: -e="discovery.type=single-node" --health-cmd="curl http://localhost:9200/_cluster/health" --health-interval=10s --health-timeout=5s --health-retries=10
+      minio:
+        # fixme: let's not depend on external unofficial image
+        image: lazybit/minio
+        ports:
+          - 9000:9000
+        env:
+          MINIO_ROOT_USER: minioadmin
+          MINIO_ROOT_PASSWORD: minioadmin
+        options: --name=minio --health-cmd "curl http://localhost:9000/minio/health/live"
+      mongodb:
+        image: mongo:4.2.6
+        ports:
+          - 27017:27017
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: install dependencies
+        run: yarn install
+
+      - name: Cache testing redis
+        id: cache-redis
+        uses: actions/cache@v2
+        with:
+          path: ./redis-bin
+          key: ${{ runner.os }}-yarn-${{ hashFiles('.redis_version') }}
+      - name: install redis for testing
+        if: steps.cache-redis.outputs.cache-hit != 'true'
+        run: yarn install_redis_for_testing
+
+      - run: sudo apt update
+      - run: sudo apt-get install poppler-utils
+      - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+      - run: chmod +x ./cc-test-reporter
+      - run: ./cc-test-reporter before-build
+      - name: Run tests
+        env:
+          ELASTICSEARCH_URL: http://localhost:${{ job.services.elasticsearch.ports[9200] }}
+        run: node --max-http-header-size 20000 ./node_modules/.bin/jest app/api app/shared --coverage --coverageDirectory  coverage/api --maxWorkers=2
+      - run: ./cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.api.json coverage/api/lcov.info
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: api-coverage-report
+          path: tmp/codeclimate.api.json
+          retention-days: 1
+    env:
+      CC_TEST_REPORTER_ID: 61434ccfc3eeb2ed7b9cfec1d61c4e0ca115a32c1eebfefe404d1ecb77d73358 #codelimate api key
+  app_unit_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: install dependencies
+        run: yarn install
+      - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+      - run: chmod +x ./cc-test-reporter
+      - run: ./cc-test-reporter before-build
+      - name: Run tests
+        run: node --max-http-header-size 20000 ./node_modules/.bin/jest app/react --coverage --coverageDirectory  coverage/react --maxWorkers=2
+      - run: ./cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.react.json coverage/react/lcov.info
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: react-coverage-report
+          path: tmp/codeclimate.react.json
+          retention-days: 1
+    env:
+      CC_TEST_REPORTER_ID: 61434ccfc3eeb2ed7b9cfec1d61c4e0ca115a32c1eebfefe404d1ecb77d73358 #codelimate api key
+  codeclimate:
+    runs-on: ubuntu-latest
+    needs: [api_unit_tests, app_unit_tests]
+    steps:
+      - name: Download tests results
+        uses: actions/download-artifact@v3
+      - name: Download codeclimate binay
+        run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+      - run: chmod +x ./cc-test-reporter
+      - name: Sum coverage reports
+        run: ./cc-test-reporter sum-coverage **/codeclimate.*.json -p 2 -o codeclimate.total.json
+      - name: Upload coverage reports
+        run: ./cc-test-reporter upload-coverage -i codeclimate.total.json
+    env:
+      CC_TEST_REPORTER_ID: 61434ccfc3eeb2ed7b9cfec1d61c4e0ca115a32c1eebfefe404d1ecb77d73358 #codelimate api key

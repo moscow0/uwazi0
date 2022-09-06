@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`search multiselect aggregations allAggregations should return all aggregations 1`] = `
+Array [
+  "meta",
+  "doc_count",
+  "nested2",
+  "nested1",
+  "nestedField_nested",
+  "__select1",
+  "__multiselect1",
+  "relationship",
+  "_types",
+  "multiselect1",
+  "__groupedDictionary",
+  "__relationshipcountryselect",
+  "groupedDictionary",
+  "relationshipcountryselect",
+  "select1",
+  "__relationshipcountry",
+  "relationshipcountry",
+  "__relationship",
+  "__nestedField_nested",
+]
+`;

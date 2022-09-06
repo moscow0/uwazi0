@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link should render a slideshow 1`] = `
+<l
+  additionalClass=""
+  autoPlay={true}
+  disableKeyDown={false}
+  disableSwipe={false}
+  disableThumbnailScroll={false}
+  disableThumbnailSwipe={false}
+  flickThreshold={0.4}
+  indexSeparator=" / "
+  infinite={true}
+  isRTL={false}
+  items={
+    Array [
+      Object {
+        "renderItem": [Function],
+      },
+      Object {
+        "renderItem": [Function],
+      },
+    ]
+  }
+  lazyLoad={false}
+  onBeforeSlide={null}
+  onClick={null}
+  onErrorImageURL=""
+  onImageError={null}
+  onImageLoad={null}
+  onMouseLeave={null}
+  onMouseOver={null}
+  onPause={null}
+  onPlay={null}
+  onScreenChange={null}
+  onSlide={null}
+  onThumbnailClick={null}
+  onThumbnailError={null}
+  onTouchEnd={null}
+  onTouchMove={null}
+  onTouchStart={null}
+  renderCustomControls={null}
+  renderFullscreenButton={[Function]}
+  renderItem={null}
+  renderLeftNav={[Function]}
+  renderPlayPauseButton={[Function]}
+  renderRightNav={[Function]}
+  renderThumbInner={null}
+  showBullets={false}
+  showFullscreenButton={false}
+  showIndex={false}
+  showNav={false}
+  showPlayButton={false}
+  showThumbnails={false}
+  slideDuration={450}
+  slideInterval={3000}
+  slideOnThumbnailOver={false}
+  startIndex={0}
+  stopPropagation={false}
+  swipeThreshold={30}
+  swipingThumbnailTransitionDuration={0}
+  swipingTransitionDuration={0}
+  thumbnailPosition="bottom"
+  useBrowserFullscreen={true}
+  useTranslate3D={true}
+  useWindowKeyDown={true}
+/>
+`;

@@ -1,0 +1,234 @@
+@import '../../scss/elements/pill';
+
+.sidepanel-body {
+  .print-view-alt {
+    display: none;
+  }
+}
+
+.sidepanel-body,
+.entity-viewer {
+  .view {
+    padding: 0;
+    dl {
+      display: table;
+      width: 100%;
+      padding: 15px;
+      margin: 0;
+
+      &.highlight dd {
+        background-color: $c-card-highlight;
+        border: 1px solid $c-shadow;
+        border-radius: 6px;
+        padding: 0 3px;
+      }
+    }
+
+    dt {
+      width: 100%;
+      font-weight: 300;
+      font-style: normal;
+      font-family: $f-special;
+      margin-bottom: 5px;
+    }
+    dd {
+      width: 100%;
+      margin: 0;
+
+      > ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+      > ul.multiline li {
+        margin: 5px 0;
+      }
+
+      button.link-button {
+        background: none !important;
+        border: none;
+        padding: 0 !important;
+        color: $c-primary;
+        cursor: pointer;
+        background-color: transparent;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    a {
+      color: $c-primary;
+      border-bottom: 1px solid $c-primary-light;
+      text-decoration: none !important;
+
+      &:hover {
+        color: $c-primary;
+        border-color: $c-primary;
+      }
+    }
+  }
+  .btn-block {
+    padding: 10px 15px;
+    margin: 15px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: $f-size-sm;
+    font-weight: bold;
+  }
+
+  .attachments-list {
+    .delete-supporting-file {
+      margin-left: 15px;
+      &:hover {
+        color: #fff;
+        background-color: #d9534f;
+        border-color: #d43f3a;
+      }
+    }
+
+    .new {
+      background-color: rgba($color: #5cb85c, $alpha: 0.15);
+    }
+  }
+}
+
+.entity-viewer {
+  .metadata-type-relationship {
+    .link-button {
+      display: block;
+      text-align: left;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+ul.compact {
+  margin: 0;
+  padding: 0;
+  display: inline;
+
+  .item-value {
+    display: inline;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+ul.comma-separated li {
+  display: inline-block;
+  margin: 5px 10px 0 0;
+  &:not(:last-child):after {
+    content: ',\0020';
+  }
+}
+
+.item-count::before {
+  content: '(';
+}
+
+.item-count::after {
+  content: ')';
+}
+
+.entity-viewer .compact .item-value {
+  display: block;
+}
+
+.sidepanel-body .view dl {
+  border-top: 1px solid $c-grey-lighten;
+  &:first-child {
+    border-top: 0;
+  }
+}
+
+.sidepanel-body .view dl.full-width {
+  padding: 15px 0;
+  text-align: center;
+}
+
+.entity-viewer {
+  .view {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    overflow: auto;
+    dl {
+      width: auto;
+      min-width: 120px;
+      padding: 30px 15px;
+    }
+    .metadata-type-markdown,
+    .metadata-type-geolocation,
+    .metadata-type-geolocation_group,
+    .metadata-type-multimedia,
+    .metadata-timeline-viewer {
+      width: 100%;
+    }
+    .print-view-alt {
+      display: none;
+    }
+  }
+}
+
+dl.metadata-type-multimedia {
+  dd {
+    text-align: center;
+    overflow: hidden;
+  }
+
+  img {
+    box-shadow: 3px 1px 6px 0px rgba(0, 0, 0, 0.2), -3px 1px 6px 0px rgba(0, 0, 0, 0.2);
+
+    &.contain {
+      max-width: calc(100% - 10px);
+      margin: 5px;
+    }
+  }
+}
+
+dl.metadata-type-geolocation,
+dl.metadata-type-geolocation_group {
+  @include pillItem(#d9534e, white);
+
+  .pills-container {
+    border-top: none;
+    padding: 10px 0 0 0;
+  }
+}
+
+.metadata-extractor-container {
+  position: relative;
+
+  .extraction-button {
+    position: absolute;
+    background: none;
+    border: unset;
+    color: #2b56c1;
+    top: 0;
+    bottom: 0;
+    right: 2px;
+    z-index: 1;
+
+    animation-name: extraction-button;
+    animation-duration: 225ms;
+    @keyframes extraction-button {
+      0% {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      25% {
+        transform: scale(1.1);
+        opacity: 0.9;
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    span {
+      background-color: rgba(255, 255, 255, 1);
+      padding: 2px;
+    }
+  }
+}

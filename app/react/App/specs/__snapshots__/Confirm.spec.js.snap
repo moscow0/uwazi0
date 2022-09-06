@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CantDeleteTemplateAlert extraConfirm option should render a confirm input 1`] = `
+<Modal
+  className=""
+  isOpen={false}
+  type="danger"
+  zIndex={99}
+>
+  <Body>
+    <h4>
+      <Connect(Translate)>
+        Confirm action
+      </Connect(Translate)>
+    </h4>
+    <p>
+      <Connect(Translate)
+        translationKey=""
+      >
+        Are you sure you want to continue?
+      </Connect(Translate)>
+    </p>
+    <p>
+      <Connect(Translate)>
+        If you want to continue, please type
+      </Connect(Translate)>
+       '
+      CONFIRM
+      '
+       
+    </p>
+    <input
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+  </Body>
+  <Footer>
+    <button
+      className="btn btn-default cancel-button"
+      onClick={[Function]}
+      type="button"
+    >
+      <Connect(Translate)>
+        Cancel
+      </Connect(Translate)>
+    </button>
+    <button
+      className="btn confirm-button btn-danger"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      <Connect(Translate)>
+        Accept
+      </Connect(Translate)>
+    </button>
+  </Footer>
+</Modal>
+`;
+
+exports[`CantDeleteTemplateAlert noCancel option should hide the cancel button 1`] = `
+<Modal
+  className=""
+  isOpen={false}
+  type="danger"
+  zIndex={99}
+>
+  <Body>
+    <h4>
+      <Connect(Translate)>
+        Confirm action
+      </Connect(Translate)>
+    </h4>
+    <p>
+      <Connect(Translate)
+        translationKey=""
+      >
+        Are you sure you want to continue?
+      </Connect(Translate)>
+    </p>
+  </Body>
+  <Footer>
+    <button
+      className="btn confirm-button btn-danger"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      <Connect(Translate)>
+        Accept
+      </Connect(Translate)>
+    </button>
+  </Footer>
+</Modal>
+`;

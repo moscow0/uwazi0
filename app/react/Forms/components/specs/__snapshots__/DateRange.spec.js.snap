@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateRange should allow using the local timezone 1`] = `
+<div>
+  <div
+    className="DatePicker__From"
+  >
+    <Connect(Translate)
+      translationKey="Label date \\"From\\""
+    >
+      From:
+    </Connect(Translate)>
+    <Connect(DatePicker)
+      onChange={[Function]}
+      useTimezone={true}
+      value={0}
+    />
+  </div>
+  <div
+    className="DatePicker__To"
+  >
+    <Connect(Translate)
+      translationKey="Label date \\"to\\""
+    >
+      To:
+    </Connect(Translate)>
+    <Connect(DatePicker)
+      endOfDay={true}
+      onChange={[Function]}
+      useTimezone={true}
+      value={1}
+    />
+  </div>
+</div>
+`;
+
+exports[`DateRange should render the component 1`] = `
+<div>
+  <div
+    className="DatePicker__From"
+  >
+    <Connect(Translate)
+      translationKey="Label date \\"From\\""
+    >
+      From:
+    </Connect(Translate)>
+    <Connect(DatePicker)
+      onChange={[Function]}
+      useTimezone={false}
+      value={0}
+    />
+  </div>
+  <div
+    className="DatePicker__To"
+  >
+    <Connect(Translate)
+      translationKey="Label date \\"to\\""
+    >
+      To:
+    </Connect(Translate)>
+    <Connect(DatePicker)
+      endOfDay={true}
+      onChange={[Function]}
+      useTimezone={false}
+      value={1}
+    />
+  </div>
+</div>
+`;
